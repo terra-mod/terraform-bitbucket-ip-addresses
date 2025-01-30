@@ -8,7 +8,7 @@ data "http" "bitbucket_ips" {
 }
 
 locals {
-  ip_range = tolist(jsondecode(data.http.bitbucket_ips.body).items[*].cidr)
+  ip_range = tolist(jsondecode(data.http.bitbucket_ips.response_body).items[*].cidr)
   ipv4_range = compact([
     for cidr in local.ip_range :
     replace(cidr, "/.*[:].*/", "")
